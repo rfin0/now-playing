@@ -123,5 +123,3 @@ public class NowPlayingToast implements Toast {
         graphics.blitSprite(BACKGROUND_SPRITE, 160, 32, 160 - n, vOffset, i - n, y, n, vHeight);
     }
 }
-
-
