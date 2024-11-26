@@ -5,12 +5,12 @@
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_${java_version}",
   "mixins": [
-    "GuiAccessor"
   ],
   "client": [
     "MixinLevelRenderer",
     "MixinMinecraft",
-    "MixinToastInstance"
+    "MixinToastInstance",
+    "GuiAccessor"
   ],
   "server": [
   ],

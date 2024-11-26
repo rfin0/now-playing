@@ -27,10 +27,8 @@ thinking of.
 With this mod, wonder no more! A toast will pop up in the top right corner of your screen or just 
 above your hotbar (configurable), telling you what song you're about to listen to.
 
-### License
-
-[MIT](https://mit-license.org/)
-
 ### Contact
 
 [![GitHub Issues](https://img.shields.io/github/issues/Scotsguy/now-playing?logo=github&label=Issues)](https://github.com/Scotsguy/now-playing/issues)
+
+[![License](https://img.shields.io/github/license/scotsguy/now-playing?label=License&logo=github&logoColor=white)](https://github.com/scotsguy/now-playing/blob/HEAD/LICENSE.txt)

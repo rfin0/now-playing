@@ -1,4 +1,7 @@
 {
+  "modmenu.descriptionTranslation.now-playing": "${mod_description}",
+  "fml.menu.mods.info.description.now_playing": "${mod_description}",
+  
   "screen.now-playing.default": "Now Playing",
   "screen.now-playing.options": "Now Playing Options",
 

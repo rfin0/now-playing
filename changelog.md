@@ -1,1 +1,0 @@
-- Add Simplified Chinese translation (user111192)
