@@ -47,7 +47,7 @@ public class MixinToastInstance<T extends Toast> {
             )
     )
     void silenceWooshSound(Toast.Visibility instance, SoundManager soundManager, Operation<Void> original) {
-        if (!(toast instanceof NowPlayingToast && Config.get().options.silenceWoosh)) {
+        if (!(toast instanceof NowPlayingToast && Config.options().silenceWoosh)) {
             original.call(instance, soundManager);
         }
     }

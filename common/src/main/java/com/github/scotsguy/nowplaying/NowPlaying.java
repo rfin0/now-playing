@@ -71,14 +71,14 @@ public class NowPlaying {
     }
 
     public static void displayMusic(Component name) {
-        display(name, Sound.getMusicDisc(name.getString()), Config.get().options.musicStyle);
+        display(name, Sound.getMusicDisc(name.getString()), Config.options().musicStyle);
     }
 
     public static void display(Component name, Item disc, Config.Options.Style style) {
         Component message = Component.translatable("record.nowPlaying", name);
 
         Minecraft mc = Minecraft.getInstance();
-        Config.Options options = Config.get().options;
+        Config.Options options = Config.options();
 
         switch(style) {
             case Toast -> {

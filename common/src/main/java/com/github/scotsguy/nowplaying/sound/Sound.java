@@ -39,7 +39,7 @@ public class Sound {
     }
 
     public static Item getMusicDisc(String music) {
-        if (Config.get().options.onlyCat) return Items.MUSIC_DISC_CAT;
+        if (Config.options().onlyCat) return Items.MUSIC_DISC_CAT;
         if (music.startsWith("C418")) {
             return Items.MUSIC_DISC_BLOCKS;
         } else if (music.startsWith("Lena Raine")) {

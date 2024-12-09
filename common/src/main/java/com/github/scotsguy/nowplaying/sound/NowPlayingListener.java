@@ -39,7 +39,7 @@ public class NowPlayingListener implements SoundEventListener {
             Component name = Sound.getSoundName(sound);
             NowPlaying.lastMusic = name;
 
-            if (!Config.get().options.onlyKeybind
+            if (!Config.options().onlyKeybind
                     && Minecraft.getInstance().options.getSoundSourceVolume(SoundSource.MASTER) != 0f) {
                 NowPlaying.displayMusic(name);
             }

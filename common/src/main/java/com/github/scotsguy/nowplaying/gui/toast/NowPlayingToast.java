@@ -73,7 +73,7 @@ public class NowPlayingToast implements Toast {
             graphics.blitSprite(BACKGROUND_SPRITE, 0, 0, width, height);
         } else {
             // Stretch toast by drawing the sprite multiple times
-            height = height + Math.max(0, textLines.size() - (Config.get().options.simpleToast ? 2 : 1)) * 12;
+            height = height + Math.max(0, textLines.size() - (Config.options().simpleToast ? 2 : 1)) * 12;
             int bottomHeight = Math.min(4, height - 28);
 
             // Draw the top border
@@ -88,7 +88,7 @@ public class NowPlayingToast implements Toast {
             this.renderBackgroundRow(graphics, width, 32 - bottomHeight, height - bottomHeight, bottomHeight);
         }
 
-        if (Config.get().options.simpleToast) {
+        if (Config.options().simpleToast) {
             // Draw song title only
             for (int i = 0; i < textLines.size(); ++i) {
                 graphics.drawString(mc.font, textLines.get(i), TEXT_LEFT_MARGIN, (textLines.size() == 1 ? 12 : 6 + i * 12), -16777216, false);

@@ -30,9 +30,8 @@ import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -42,11 +41,16 @@ import static com.github.scotsguy.nowplaying.util.Localization.localized;
 public class Config {
     private static final Path DIR_PATH = Path.of("config");
     private static final String FILE_NAME = NowPlaying.MOD_ID + ".json";
+    private static final String BACKUP_FILE_NAME = NowPlaying.MOD_ID + ".unreadable.json";
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     // Options
 
     public final Options options = new Options();
+
+    public static Options options() {
+        return Config.get().options;
+    }
 
     public static class Options {
         public static final boolean defaultOnlyKeybind = false;
@@ -130,31 +134,47 @@ public class Config {
         Config config = null;
         if (Files.exists(file)) {
             config = load(file, GSON);
+            if (config == null) {
+                backup();
+                NowPlaying.LOG.warn("Resetting config");
+            }
         }
-        if (config == null) {
-            config = new Config();
-        }
-        return config;
+        return config != null ? config : new Config();
     }
 
     private static @Nullable Config load(Path file, Gson gson) {
-        try (FileReader reader = new FileReader(file.toFile())) {
+        try (InputStreamReader reader = new InputStreamReader(
+                new FileInputStream(file.toFile()), StandardCharsets.UTF_8)) {
             return gson.fromJson(reader, Config.class);
         } catch (Exception e) {
             // Catch Exception as errors in deserialization may not fall under
             // IOException or JsonParseException, but should not crash the game.
-            NowPlaying.LOG.error("Unable to load config.", e);
+            NowPlaying.LOG.error("Unable to load config", e);
             return null;
         }
     }
 
+    private static void backup() {
+        try {
+            NowPlaying.LOG.warn("Copying {} to {}", FILE_NAME, BACKUP_FILE_NAME);
+            if (!Files.isDirectory(DIR_PATH)) Files.createDirectories(DIR_PATH);
+            Path file = DIR_PATH.resolve(FILE_NAME);
+            Path backupFile = file.resolveSibling(BACKUP_FILE_NAME);
+            Files.move(file, backupFile, StandardCopyOption.ATOMIC_MOVE,
+                    StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            NowPlaying.LOG.error("Unable to copy config file", e);
+        }
+    }
+
     public static void save() {
+        if (instance == null) return;
         try {
             if (!Files.isDirectory(DIR_PATH)) Files.createDirectories(DIR_PATH);
             Path file = DIR_PATH.resolve(FILE_NAME);
             Path tempFile = file.resolveSibling(file.getFileName() + ".tmp");
-
-            try (FileWriter writer = new FileWriter(tempFile.toFile())) {
+            try (OutputStreamWriter writer = new OutputStreamWriter(
+                    new FileOutputStream(tempFile.toFile()), StandardCharsets.UTF_8)) {
                 writer.write(GSON.toJson(instance));
             } catch (IOException e) {
                 throw new IOException(e);
@@ -162,7 +182,7 @@ public class Config {
             Files.move(tempFile, file, StandardCopyOption.ATOMIC_MOVE,
                     StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-            NowPlaying.LOG.error("Unable to save config.", e);
+            NowPlaying.LOG.error("Unable to save config", e);
         }
     }
 }

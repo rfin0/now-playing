@@ -62,7 +62,7 @@ public class MixinLevelRenderer {
     )
     private void display(Gui instance, Component text, Operation<Void> original,
                          @Local JukeboxSong song, @Local SoundEvent sound) {
-        NowPlaying.display(song.description(), now_playing$getDisc(sound), Config.get().options.jukeboxStyle);
+        NowPlaying.display(song.description(), now_playing$getDisc(sound), Config.options().jukeboxStyle);
     }
 
     @Unique
