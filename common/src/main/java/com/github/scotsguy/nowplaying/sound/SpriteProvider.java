@@ -1,0 +1,111 @@
+/*
+ * Copyright (c) 2022-2025 AppleTheGolden
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+ * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+ * OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package com.github.scotsguy.nowplaying.sound;
+
+import com.github.scotsguy.nowplaying.NowPlaying;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
+import org.jetbrains.annotations.Nullable;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.List;
+
+public class SpriteProvider {
+    private static final ResourceLocation SPRITES_FILE = 
+            ResourceLocation.fromNamespaceAndPath(NowPlaying.MOD_ID, "sprites.json");
+    public static final ResourceLocation DISC_SPRITE_DEFAULT =
+            ResourceLocation.parse("textures/item/music_disc_cat.png");
+    
+    private static final HashMap<String, ResourceLocation> CACHE = new HashMap<>();
+    private static boolean hasAttemptedLoad;
+    
+    public static void onResourceReload() {
+        CACHE.clear();
+        hasAttemptedLoad = false;
+    }
+    
+    private static @Nullable ResourceLocation getCustomSprite(String song) {
+        if (CACHE.isEmpty() && !hasAttemptedLoad) {
+            loadCache();
+        }
+        return CACHE.get(song);
+    }
+    
+    private static void loadCache() {
+        hasAttemptedLoad = true;
+        NowPlaying.LOG.warn("loading cache");
+        ResourceManager manager = Minecraft.getInstance().getResourceManager();
+        try {
+            List<Resource> resourceStack = manager.getResourceStack(SPRITES_FILE);
+            for (Resource resource : resourceStack) {
+                try (var reader = new InputStreamReader(resource.open())) {
+                    JsonObject obj = JsonParser.parseReader(reader).getAsJsonObject();
+                    for (var entry : obj.entrySet()) {
+                        NowPlaying.LOG.info("{} :: {}",entry.getKey(), entry.getValue().getAsString());
+                        ResourceLocation location = 
+                                ResourceLocation.tryParse(entry.getValue().getAsString());
+                        if (location != null) {
+                            CACHE.put(entry.getKey(), location);
+                        }
+                    }
+                }
+            }
+        } 
+        catch (IOException | JsonParseException e) {
+            NowPlaying.LOG.error(e.getMessage());
+        }
+    }
+
+    public static ResourceLocation getMusicSprite(ResourceLocation location) {
+        String locStr = location.toString();
+        ResourceLocation sprite = getCustomSprite(locStr);
+        
+        if (sprite == null) {
+            NowPlaying.LOG.warn("getSprite failed for {}", locStr);
+            String namespace = location.getNamespace();
+            String path = location.getPath();
+            String[] splitPath = path.split("/");
+            
+            for (int i = splitPath.length -1; i > 0; i--) {
+                path = path.substring(0, path.length() - (splitPath[i].length() + 1));
+                NowPlaying.LOG.warn("trying {}", namespace + ":" + path);
+                sprite = getCustomSprite(namespace + ":" + path);
+                if (sprite != null) break;
+            }
+        }
+        
+        return sprite != null ? sprite : DISC_SPRITE_DEFAULT;
+    }
+    
+    public static ResourceLocation getDiscSprite(ResourceLocation location) {
+        String discId = location.getPath().replaceAll("\\.", "_");
+        return ResourceLocation.parse("textures/item/" + discId + ".png");
+    }
+}

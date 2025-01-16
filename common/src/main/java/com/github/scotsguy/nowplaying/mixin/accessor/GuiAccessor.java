@@ -20,7 +20,7 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.scotsguy.nowplaying.mixin;
+package com.github.scotsguy.nowplaying.mixin.accessor;
 
 import net.minecraft.client.gui.Gui;
 import org.spongepowered.asm.mixin.Mixin;

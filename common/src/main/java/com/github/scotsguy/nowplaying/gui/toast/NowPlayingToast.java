@@ -30,7 +30,6 @@ import net.minecraft.client.gui.components.toasts.ToastComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
-import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -41,16 +40,16 @@ public class NowPlayingToast implements Toast {
     private static final ResourceLocation BACKGROUND_SPRITE = ResourceLocation.withDefaultNamespace("toast/recipe");
 
     private final Component description;
-    private final ItemStack itemStack;
+    private final ResourceLocation discSprite;
     private final long displayTime;
     private final float scale;
 
     private static final int TEXT_LEFT_MARGIN = 30;
     private static final int TEXT_RIGHT_MARGIN = 7;
 
-    public NowPlayingToast(Component description, ItemStack itemStack, long displayTime, float scale) {
+    public NowPlayingToast(Component description, ResourceLocation discSprite, long displayTime, float scale) {
         this.description = description;
-        this.itemStack = itemStack;
+        this.discSprite = discSprite;
         this.displayTime = displayTime;
         this.scale = scale;
     }
@@ -104,7 +103,7 @@ public class NowPlayingToast implements Toast {
         }
 
         // Draw icon
-        graphics.renderFakeItem(itemStack, 9, (height / 2) - (16 / 2));
+        graphics.blit(discSprite, 9, (height / 2) - (16 / 2), 0, 0, 16, 16, 16, 16);
 
         if (scale != 1.0F) graphics.pose().popPose();
         return startTime >= this.displayTime ? Visibility.HIDE : Visibility.SHOW;

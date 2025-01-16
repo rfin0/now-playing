@@ -24,9 +24,10 @@ package com.github.scotsguy.nowplaying;
 
 import com.github.scotsguy.nowplaying.config.Config;
 import com.github.scotsguy.nowplaying.gui.toast.NowPlayingToast;
-import com.github.scotsguy.nowplaying.mixin.GuiAccessor;
-import com.github.scotsguy.nowplaying.sound.Sound;
+import com.github.scotsguy.nowplaying.mixin.accessor.GuiAccessor;
+import com.github.scotsguy.nowplaying.mixin.accessor.MinecraftAccessor;
 import com.github.scotsguy.nowplaying.util.ModLogger;
+import com.github.scotsguy.nowplaying.sound.SpriteProvider;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
@@ -34,9 +35,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 
+import java.util.function.Supplier;
+
+import static com.github.scotsguy.nowplaying.config.Config.options;
 import static com.github.scotsguy.nowplaying.util.Localization.localized;
 import static com.github.scotsguy.nowplaying.util.Localization.translationKey;
 
@@ -49,7 +52,7 @@ public class NowPlaying {
             translationKey("key", "display"), InputConstants.Type.KEYSYM,
             InputConstants.UNKNOWN.getValue(), translationKey("key_group"));
 
-    public static Component lastMusic;
+    public static ResourceLocation lastMusic;
 
     public static void init() {
         Config.getAndSave();
@@ -57,8 +60,14 @@ public class NowPlaying {
 
     public static void onEndTick(Minecraft mc) {
         while (DISPLAY_KEY.consumeClick()) {
-            displayLastMusic();
+//            displayLastMusic();
+            ((MinecraftAccessor)mc).getMusicManager().stopPlaying();
+            ((MinecraftAccessor)mc).getMusicManager().startPlaying(mc.getSituationalMusic());
         }
+    }
+    
+    public static void onResourceReload() {
+        SpriteProvider.onResourceReload();
     }
 
     public static void displayLastMusic() {
@@ -69,32 +78,36 @@ public class NowPlaying {
                     localized("message", "not_found").withStyle(ChatFormatting.RED), true);
         }
     }
-
-    public static void displayMusic(Component name) {
-        display(name, Sound.getMusicDisc(name.getString()), Config.options().musicStyle);
+    
+    public static void displayMusic(ResourceLocation location) {
+        display(localized(location.toString()), () -> SpriteProvider.getMusicSprite(location), 
+                options().musicStyle);
     }
 
-    public static void display(Component name, Item disc, Config.Options.Style style) {
-        Component message = Component.translatable("record.nowPlaying", name);
+    public static void displayDisc(Component text, ResourceLocation location) {
+        display(text, () -> SpriteProvider.getDiscSprite(location), options().jukeboxStyle);
+    }
 
+    private static void display(Component name, Supplier<ResourceLocation> spriteSupplier, 
+                               Config.Options.Style style) {
         Minecraft mc = Minecraft.getInstance();
-        Config.Options options = Config.options();
+        Component message = Component.translatable("record.nowPlaying", name);
 
         switch(style) {
             case Toast -> {
-                mc.getToasts().addToast(new NowPlayingToast(name, new ItemStack(disc),
-                        options.toastTime * 1000L, options.toastScale));
-                if (options.narrate) mc.getNarrator().sayNow(message);
+                mc.getToasts().addToast(new NowPlayingToast(name, spriteSupplier.get(),
+                        options().toastTime * 1000L, options().toastScale));
+                if (options().narrate) mc.getNarrator().sayNow(message);
             }
             case Hotbar -> {
                 if (isHotbarVisible(mc.screen)) {
                     mc.gui.setOverlayMessage(message, true);
-                    ((GuiAccessor)mc.gui).setOverlayMessageTime(options.hotbarTime * 20);
-                } else if (options.fallbackToast) {
-                    mc.getToasts().addToast(new NowPlayingToast(name, new ItemStack(disc),
-                            options.toastTime * 1000L, options.toastScale));
+                    ((GuiAccessor)mc.gui).setOverlayMessageTime(options().hotbarTime * 20);
+                } else if (options().fallbackToast) {
+                    mc.getToasts().addToast(new NowPlayingToast(name, spriteSupplier.get(),
+                            options().toastTime * 1000L, options().toastScale));
                 }
-                if (options.narrate) mc.getNarrator().sayNow(message);
+                if (options().narrate) mc.getNarrator().sayNow(message);
             }
         }
     }

@@ -1,6 +1,6 @@
 {
-  "modmenu.descriptionTranslation.now-playing": "${mod_description}",
-  "fml.menu.mods.info.description.now_playing": "${mod_description}",
+  "modmenu.descriptionTranslation.now-playing": "Shows a popup whenever the active music track music changes.",
+  "fml.menu.mods.info.description.now_playing": "Shows a popup whenever the active music track music changes.",
   
   "screen.now-playing.default": "Сейчас играет",
   "screen.now-playing.options": "Параметры воспроизведения",
@@ -23,8 +23,6 @@
   "option.now-playing.toast_scale.tooltip": "Изменить размер всплывающего окна 'Сейчас играет'",
   "option.now-playing.simple_toast": "Простое всплывающее окно",
   "option.now-playing.simple_toast.tooltip": "Во всплывающем окне отображается только название песни без текста 'Сейчас играет'",
-  "option.now-playing.only_cat": "Только Cat",
-  "option.now-playing.only_cat.tooltip": "Всегда показывать диск 'Cat' для фоновой музыки во всплывающем окне",
   "option.now-playing.toast_time": "Время отображения всплывающего окна",
   "option.now-playing.toast_time.tooltip": "Время (в секундах) для отображения всплывающего окна 'Сейчас играет'",
   "option.now-playing.hotbar_time": "Время отображения панели быстрого доступа",

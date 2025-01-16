@@ -74,9 +74,6 @@ public class Config {
         public static final boolean defaultSimpleToast = false;
         public boolean simpleToast = defaultSimpleToast;
 
-        public static final boolean defaultOnlyCat = false;
-        public boolean onlyCat = defaultOnlyCat;
-
         public static final int defaultToastTime = 5;
         public int toastTime = defaultToastTime;
 

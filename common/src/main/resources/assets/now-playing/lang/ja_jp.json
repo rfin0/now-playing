@@ -23,8 +23,6 @@
   "option.now-playing.toast_scale.tooltip": "「再生中」トーストのサイズを変更する",
   "option.now-playing.simple_toast": "シンプルなトースト",
   "option.now-playing.simple_toast.tooltip": "曲名のみを表示します",
-  "option.now-playing.only_cat": "Only Cat",
-  "option.now-playing.only_cat.tooltip": "Always show the 'Cat' disc for background music toasts",
   "option.now-playing.toast_time": "トーストの表示時間",
   "option.now-playing.toast_time.tooltip": "「再生中」トーストを表示する時間（秒）",
   "option.now-playing.hotbar_time": "ホットバーの表示時間",

@@ -23,25 +23,27 @@
 package com.github.scotsguy.nowplaying.sound;
 
 import com.github.scotsguy.nowplaying.NowPlaying;
-import com.github.scotsguy.nowplaying.config.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.SoundEventListener;
 import net.minecraft.client.sounds.WeighedSoundEvents;
-import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import org.jetbrains.annotations.NotNull;
 
+import static com.github.scotsguy.nowplaying.config.Config.options;
+
 public class NowPlayingListener implements SoundEventListener {
     @Override
-    public void onPlaySound(@NotNull SoundInstance sound, @NotNull WeighedSoundEvents soundSet, float f) {
-        if (sound.getSource() == SoundSource.MUSIC) {
-            Component name = Sound.getSoundName(sound);
-            NowPlaying.lastMusic = name;
+    public void onPlaySound(@NotNull SoundInstance soundInstance, 
+                            @NotNull WeighedSoundEvents soundSet, float f) {
+        if (soundInstance.getSource() == SoundSource.MUSIC) {
+            ResourceLocation location = soundInstance.getSound().getLocation();
+            NowPlaying.lastMusic = location;
 
-            if (!Config.options().onlyKeybind
+            if (!options().onlyKeybind
                     && Minecraft.getInstance().options.getSoundSourceVolume(SoundSource.MASTER) != 0f) {
-                NowPlaying.displayMusic(name);
+                NowPlaying.displayMusic(location);
             }
         }
     }
