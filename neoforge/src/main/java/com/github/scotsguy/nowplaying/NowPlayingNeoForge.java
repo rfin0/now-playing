@@ -58,6 +58,17 @@ public class NowPlayingNeoForge {
         event.register(NowPlaying.DISPLAY_KEY);
     }
 
+    // Resource reload event
+    @SubscribeEvent
+    public static void registerResourceReloadEvent(RegisterClientReloadListenersEvent event) {
+        event.registerReloadListener(new ResourceManagerReloadListener() {
+            @Override
+            public void onResourceManagerReload(@NotNull ResourceManager resourceManager) {
+                NowPlaying.onResourceReload();
+            }
+        });
+    }
+
     @EventBusSubscriber(modid = NowPlaying.MOD_ID_NEOFORGE, value = Dist.CLIENT)
     static class ClientEventHandler {
         // Commands
@@ -70,17 +81,6 @@ public class NowPlayingNeoForge {
         @SubscribeEvent
         public static void clientTickEvent(ClientTickEvent.Post event) {
             NowPlaying.onEndTick(Minecraft.getInstance());
-        }
-        
-        // Resource reload event
-        @SubscribeEvent
-        public static void e(RegisterClientReloadListenersEvent event) {
-            event.registerReloadListener(new ResourceManagerReloadListener() {
-                @Override
-                public void onResourceManagerReload(@NotNull ResourceManager resourceManager) {
-                    NowPlaying.onResourceReload();
-                }
-            });
         }
     }
 }
