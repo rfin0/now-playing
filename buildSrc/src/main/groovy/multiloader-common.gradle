@@ -100,9 +100,9 @@ processResources {
             "mod_icon": "assets/" + mod_id + "/icon.png",
             "mod_owner": mod_owner,
             "mod_authors_list": asJsonList(mod_authors),
-            "mod_contributors_list": asJsonList(mod_contributors),
             "mod_authors_string": mod_authors.replace(",", ", "),
-            "mod_contributors_string": mod_contributors.replace(",", ", "),
+            "mod_contributors_list": asJsonList("${mod_contributors},${mod_translators}"),
+            "mod_contributors_string": "${mod_contributors},${mod_translators}".replace(",", ", "),
             "mod_license": mod_license,
             // Links
             "homepage_url": homepage_url,
