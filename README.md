@@ -20,11 +20,11 @@ Shows a popup whenever the active music track changes.
 
 ### About
 
-Have you ever wondered what all the songs in Minecraft are actually called? Sure, you could check 
-the soundtrack to find out, but then you have to listen to every song, hoping it's the one you're 
+Have you ever wondered what all the songs in Minecraft are actually called? Sure, you could check
+the soundtrack to find out, but then you have to listen to every song, hoping it's the one you're
 thinking of.
 
-With this mod, wonder no more! A toast will pop up in the top right corner of your screen or just 
+With this mod, wonder no more! A toast will pop up in the top right corner of your screen or just
 above your hotbar (configurable), telling you what song you're about to listen to.
 
 ### Setup
@@ -33,27 +33,29 @@ above your hotbar (configurable), telling you what song you're about to listen t
 <summary><b>General Options</b></summary>
 
 - Only use key or command
-  - Whether to only show Pop-up when the keybind is pressed or the `/nowplaying` command is used.
+    - Whether to only show pop-up when the keybind is pressed or the `/nowplaying` command is used.
 - Music pop-up style
-  - How to display background music. Choice of toast, hotbar (status bar) message, or nothing.
+    - How to display pop-up for background music. Choice of toast, hotbar (status bar) message, or
+      nothing.
 - Jukebox pop-up style
-  - How to display jukebox music. Choice of toast, hotbar (status bar) message, or nothing.
+    - How to display pop-up for jukebox music. Choice of toast, hotbar (status bar) message, or
+      nothing.
 - Fallback to toast
-  - Whether to display a toast for music set to hotbar, if not possible to show a hotbar message.
+    - Whether to display a toast for music set to hotbar, if not possible to show a hotbar message.
 - Silent toast
-  - Whether the toast should make a whoosh noise.
+    - Whether the toast should make a whoosh noise.
 - Toast scale
-  - The size of the toast.
+    - The size of the toast.
 - Simple toast
-  - Whether to show the "Now Playing" text as well as the track title in the toast.
+    - Whether to show the "Now Playing" text as well as the track title in the toast.
 - Dark toast
-  - Whether to use a dark background for the toast.
+    - Whether to use a dark background for the toast.
 - Toast display time
-  - How long the toast will be displayed for.
+    - How long the toast will be displayed for.
 - Hotbar display time
-  - How long the hotbar message will be displayed for.
+    - How long the hotbar message will be displayed for.
 - Narrate pop-up
-  - Whether pop-ups should be narrated, if the narrator is enabled.
+    - Whether pop-ups should be narrated, if the narrator is enabled.
 
 </details>
 
@@ -61,7 +63,7 @@ above your hotbar (configurable), telling you what song you're about to listen t
 <summary><b>Custom Sprites</b></summary>
 
 Now Playing supports changing which disc sprites are displayed for each background music track
-via a resource pack. First, create a `now-playing` folder in the `assets` folder of your pack, 
+via a resource pack. First, create a `now-playing` folder in the `assets` folder of your pack,
 and place a `sprites.json` file in that folder, as shown below.
 
 ```
@@ -88,9 +90,9 @@ all music tracks in that location, except those that have a more specific defini
 example above:
 
 - All tracks in the `game` folder will use the `cat` sprite, except;
-  - tracks in the `creative` folder, which will use the `blocks` sprite, except;
-    - the `taswell` track , which will use the `chirp` sprite
-  - tracks in the `nether` folder, which will use the `pigstep` sprite.
+    - tracks in the `creative` folder, which will use the `blocks` sprite, except;
+        - the `taswell` track , which will use the `chirp` sprite
+    - tracks in the `nether` folder, which will use the `pigstep` sprite.
 
 You can use any existing music disc sprite, or any sprite provided by a resourcepack.
 
@@ -99,7 +101,7 @@ You can use any existing music disc sprite, or any sprite provided by a resource
 <details>
 <summary><b>Custom Music Track Titles</b></summary>
 
-If you have a resource pack that adds custom background music, you can specify titles using a 
+If you have a resource pack that adds custom background music, you can specify titles using a
 translation file (e.g. `en_us.json`). First, create a `now-playing` folder in the `assets` folder
 of your pack, create a `lang` folder inside, and place a translation file in that folder, as shown
 below.
@@ -126,7 +128,7 @@ shown below.
 }
 ```
 
-Old translation files which use the `music.now-playing.[name]` format are still supported, but 
+Old translation files which use the `music.now-playing.[name]` format are still supported, but
 have a lower priority than the new format.
 
 </details>
