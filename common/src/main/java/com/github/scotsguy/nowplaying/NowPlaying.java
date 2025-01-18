@@ -25,6 +25,7 @@ package com.github.scotsguy.nowplaying;
 import com.github.scotsguy.nowplaying.config.Config;
 import com.github.scotsguy.nowplaying.gui.toast.NowPlayingToast;
 import com.github.scotsguy.nowplaying.mixin.accessor.GuiAccessor;
+import com.github.scotsguy.nowplaying.util.Localization;
 import com.github.scotsguy.nowplaying.util.ModLogger;
 import com.github.scotsguy.nowplaying.sound.SpriteProvider;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -33,6 +34,7 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -77,8 +79,8 @@ public class NowPlaying {
     }
     
     public static void displayMusic(ResourceLocation location) {
-        display(localized(location.toString()), () -> SpriteProvider.getMusicSprite(location), 
-                options().musicStyle);
+        display(getTranslatedTitle(location.toString()), 
+                () -> SpriteProvider.getMusicSprite(location), options().musicStyle);
     }
 
     public static void displayDisc(Component text, ResourceLocation location) {
@@ -111,5 +113,22 @@ public class NowPlaying {
 
     public static boolean isHotbarVisible(Screen screen) {
         return (screen == null || screen instanceof ChatScreen);
+    }
+    
+    private static Component getTranslatedTitle(String location) {
+        String key = Localization.translationKey(location);
+        if (!I18n.exists(key)) {
+            String[] splitLocation = location.split("/");
+            if (splitLocation.length > 0) {
+                String name = splitLocation[splitLocation.length -1];
+                if (name != null && !name.isBlank()) {
+                    String oldKey = Localization.translationKey("music", name);
+                    if (I18n.exists(oldKey)) {
+                        return Component.translatable(oldKey);
+                    }
+                }
+            }
+        }
+        return Component.translatable(key);
     }
 }
