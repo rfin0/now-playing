@@ -27,6 +27,110 @@ thinking of.
 With this mod, wonder no more! A toast will pop up in the top right corner of your screen or just 
 above your hotbar (configurable), telling you what song you're about to listen to.
 
+### Setup
+
+<details>
+<summary><b>General Options</b></summary>
+
+- Only use key or command
+  - Sprite will only be shown when the keybind is pressed or the `/nowplaying` command is used.
+- Music pop-up style
+  - How to display background music. Choice of toast, hotbar (status bar) message, or nothing.
+- Jukebox pop-up style
+  - How to display jukebox music. Choice of toast, hotbar (status bar) message, or nothing.
+- Fallback to toast
+  - Whether to display a toast for music set to hotbar, if not possible to show a hotbar message.
+- Silent toast
+  - Whether the toast should make a whoosh noise.
+- Toast scale
+  - The size of the toast.
+- Simple toast
+  - Whether to show the "Now Playing" text as well as the track title in the toast.
+- Dark toast
+  - Whether to use a dark background for the toast.
+- Toast display time
+  - How long the toast will be displayed for.
+- Hotbar display time
+  - How long the hotbar message will be displayed for.
+- Narrate pop-up
+  - Whether pop-ups should be narrated, if the narrator is enabled.
+
+</details>
+
+<details>
+<summary><b>Custom Sprites</b></summary>
+
+Now Playing supports changing which disc sprites are displayed for each background music track
+via a resource pack. First, create a `now-playing` folder in the `assets` folder of your pack, 
+and place a `sprites.json` file in that folder, as shown below.
+
+```
+assets
+├── minecraft
+└── now-playing
+    └── sprites.json
+```
+
+Next, populate the `sprites.json` file with key-value pairs, where the key is the music resource
+location (or part thereof), and the value is the sprite location, as shown below.
+
+```json
+{
+    "minecraft:music/game":                   "minecraft:textures/item/music_disc_cat",
+    "minecraft:music/game/creative":          "minecraft:textures/item/music_disc_blocks",
+    "minecraft:music/game/creative/taswell":  "minecraft:textures/item/music_disc_chirp",
+    "minecraft:music/game/nether":            "minecraft:textures/item/music_disc_pigstep"
+}
+```
+
+If you only specify part of a music resource location, the corresponding disc will be shown for
+all music tracks in that location, except those that have a more specific definition. In the
+example above:
+
+- All tracks in the `game` folder will use the `cat` sprite, except;
+  - tracks in the `creative` folder, which will use the `blocks` sprite, except;
+    - the `taswell` track , which will use the `chirp` sprite
+  - tracks in the `nether` folder, which will use the `pigstep` sprite.
+
+You can use any existing music disc sprite, or any sprite provided by a resourcepack.
+
+</details>
+
+<details>
+<summary><b>Custom Music Track Titles</b></summary>
+
+If you have a resource pack that adds custom background music, you can specify titles using a 
+translation file (e.g. `en_us.json`). First, create a `now-playing` folder in the `assets` folder
+of your pack, create a `lang` folder inside, and place a translation file in that folder, as shown
+below.
+
+```
+assets
+├── minecraft
+└── now-playing
+    └── lang
+        └── en_us.json
+```
+
+Next, populate the translation file with key-value pairs, where the key is the music resource
+location, prefixed with `now-playing`, and the value is the translated title of the track, as
+shown below.
+
+```json
+{
+    "now-playing.minecraft:music/game/a_familiar_room": "Aaron Cherof - A Familiar Room",
+    "now-playing.minecraft:music/game/an_ordinary_day": "Kumi Tanioka - An Ordinary Day",
+    "now-playing.minecraft:music/game/ancestry": "Lena Raine - Ancestry",
+    "now-playing.minecraft:music/game/clark": "C418 - Clark",
+    "now-playing.minecraft:music/game/creative/aria_math": "C418 - Aria Math"
+}
+```
+
+Old translation files which use the `music.now-playing.[name]` format are still supported, but 
+have a lower priority than the new format.
+
+</details>
+
 ### Contact
 
 [![GitHub Issues](https://img.shields.io/github/issues/Scotsguy/now-playing?logo=github&label=Issues)](https://github.com/Scotsguy/now-playing/issues)
