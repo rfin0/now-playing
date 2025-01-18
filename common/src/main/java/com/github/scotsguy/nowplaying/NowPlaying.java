@@ -49,8 +49,8 @@ public class NowPlaying {
     public static final String MOD_NAME = "Now Playing";
     public static final ModLogger LOG = new ModLogger(MOD_NAME);
     public static final KeyMapping DISPLAY_KEY = new KeyMapping(
-            translationKey("key", "display"), InputConstants.Type.KEYSYM,
-            InputConstants.UNKNOWN.getValue(), translationKey("key_group"));
+            translationKey("key", "group.display"), InputConstants.Type.KEYSYM,
+            InputConstants.UNKNOWN.getValue(), translationKey("key", "group"));
 
     public static ResourceLocation lastMusic;
 
@@ -75,7 +75,7 @@ public class NowPlaying {
             displayMusic(lastMusic);
         } else {
             Minecraft.getInstance().gui.setOverlayMessage(
-                    localized("message", "not_found").withStyle(ChatFormatting.RED), true);
+                    localized("message", "notFound").withStyle(ChatFormatting.RED), true);
         }
     }
     

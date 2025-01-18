@@ -24,7 +24,6 @@ package com.github.scotsguy.nowplaying.sound;
 
 import com.github.scotsguy.nowplaying.NowPlaying;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
@@ -32,7 +31,6 @@ import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +39,7 @@ public class SpriteProvider {
     private static final ResourceLocation SPRITES_FILE = 
             ResourceLocation.fromNamespaceAndPath(NowPlaying.MOD_ID, "sprites.json");
     public static final ResourceLocation DISC_SPRITE_DEFAULT =
-            ResourceLocation.parse("textures/item/music_disc_cat.png");
+            ResourceLocation.parse("minecraft:textures/item/music_disc_cat.png");
     
     private static final HashMap<String, ResourceLocation> CACHE = new HashMap<>();
     private static boolean hasAttemptedLoad;
@@ -60,7 +58,7 @@ public class SpriteProvider {
     
     private static void loadCache() {
         hasAttemptedLoad = true;
-        NowPlaying.LOG.warn("loading cache");
+//        NowPlaying.LOG.warn("Loading sprite cache");
         ResourceManager manager = Minecraft.getInstance().getResourceManager();
         try {
             List<Resource> resourceStack = manager.getResourceStack(SPRITES_FILE);
@@ -68,18 +66,22 @@ public class SpriteProvider {
                 try (var reader = new InputStreamReader(resource.open())) {
                     JsonObject obj = JsonParser.parseReader(reader).getAsJsonObject();
                     for (var entry : obj.entrySet()) {
-                        NowPlaying.LOG.info("{} :: {}",entry.getKey(), entry.getValue().getAsString());
-                        ResourceLocation location = 
-                                ResourceLocation.tryParse(entry.getValue().getAsString());
-                        if (location != null) {
-                            CACHE.put(entry.getKey(), location);
+                        String spriteStr = entry.getValue().getAsString();
+//                        NowPlaying.LOG.info("Added {} -> {}", entry.getKey(), spriteStr);
+                        ResourceLocation sprite = ResourceLocation.tryParse(spriteStr + ".png");
+                        if (sprite == null) {
+                            NowPlaying.LOG.error("Unable to parse sprite location '{}'", spriteStr);
+                        } else {
+                            CACHE.put(entry.getKey(), sprite);
                         }
                     }
                 }
             }
-        } 
-        catch (IOException | JsonParseException e) {
-            NowPlaying.LOG.error(e.getMessage());
+        }
+        catch (Exception e) {
+            // Catch exception as loading/parsing errors may not fall under
+            // IOException or JsonParseException, but should not crash the game.
+            NowPlaying.LOG.error("Unable to load sprite cache", e);
         }
     }
 
@@ -88,20 +90,25 @@ public class SpriteProvider {
         ResourceLocation sprite = getCustomSprite(locStr);
         
         if (sprite == null) {
-            NowPlaying.LOG.warn("getSprite failed for {}", locStr);
+//            NowPlaying.LOG.warn("getCustomSprite failed for '{}'", locStr);
             String namespace = location.getNamespace();
             String path = location.getPath();
             String[] splitPath = path.split("/");
             
             for (int i = splitPath.length -1; i > 0; i--) {
                 path = path.substring(0, path.length() - (splitPath[i].length() + 1));
-                NowPlaying.LOG.warn("trying {}", namespace + ":" + path);
+//                NowPlaying.LOG.warn("Trying reduced path '{}'", namespace + ":" + path);
                 sprite = getCustomSprite(namespace + ":" + path);
                 if (sprite != null) break;
             }
         }
         
-        return sprite != null ? sprite : DISC_SPRITE_DEFAULT;
+        if (sprite == null) {
+//            NowPlaying.LOG.warn("Unable to find any sprite for '{}'", locStr);
+            return DISC_SPRITE_DEFAULT;
+        } else {
+            return sprite;
+        }
     }
     
     public static ResourceLocation getDiscSprite(ResourceLocation location) {

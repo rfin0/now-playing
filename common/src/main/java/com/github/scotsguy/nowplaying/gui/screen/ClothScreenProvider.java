@@ -50,14 +50,14 @@ public class ClothScreenProvider {
         ConfigCategory modSettings = builder.getOrCreateCategory(localized("config", "options"));
 
         modSettings.addEntry(eb.startBooleanToggle(
-                        localized("option", "music_only_keybind"), options.onlyKeybind)
-                .setTooltip(localized("option", "music_only_keybind.tooltip"))
+                        localized("option", "onlyKeybind"), options.onlyKeybind)
+                .setTooltip(localized("option", "onlyKeybind.tooltip"))
                 .setDefaultValue(Config.Options.defaultOnlyKeybind)
                 .setSaveConsumer(val -> options.onlyKeybind = val)
                 .build());
 
         modSettings.addEntry(eb.startEnumSelector(
-                localized("option", "music_style"),
+                localized("option", "musicStyle"),
                         Config.Options.Style.class, options.musicStyle)
                 .setEnumNameProvider(Config.Options.Style::name)
                 .setDefaultValue(Config.Options.defaultMusicStyle)
@@ -65,7 +65,7 @@ public class ClothScreenProvider {
                 .build());
 
         modSettings.addEntry(eb.startEnumSelector(
-                        localized("option", "jukebox_style"),
+                        localized("option", "jukeboxStyle"),
                         Config.Options.Style.class, options.jukeboxStyle)
                 .setEnumNameProvider(Config.Options.Style::name)
                 .setDefaultValue(Config.Options.defaultJukeboxStyle)
@@ -73,22 +73,22 @@ public class ClothScreenProvider {
                 .build());
 
         modSettings.addEntry(eb.startBooleanToggle(
-                        localized("option", "fallback_toast"), options.fallbackToast)
-                .setTooltip(localized("option", "fallback_toast.tooltip"))
+                        localized("option", "fallbackToast"), options.fallbackToast)
+                .setTooltip(localized("option", "fallbackToast.tooltip"))
                 .setDefaultValue(Config.Options.defaultFallbackToast)
                 .setSaveConsumer(val -> options.fallbackToast = val)
                 .build());
 
         modSettings.addEntry(eb.startBooleanToggle(
-                localized("option", "silence_woosh"), options.silenceWoosh)
-                .setTooltip(localized("option", "silence_woosh.tooltip"))
+                localized("option", "silenceWoosh"), options.silenceWoosh)
+                .setTooltip(localized("option", "silenceWoosh.tooltip"))
                 .setDefaultValue(Config.Options.defaultSilenceWoosh)
                 .setSaveConsumer(val -> options.silenceWoosh = val)
                 .build());
 
         modSettings.addEntry(eb.startFloatField(
-                        localized("option", "toast_scale"), options.toastScale)
-                .setTooltip(localized("option", "toast_scale.tooltip"))
+                        localized("option", "toastScale"), options.toastScale)
+                .setTooltip(localized("option", "toastScale.tooltip"))
                 .setDefaultValue(Config.Options.defaultToastScale)
                 .setMin(0.25F)
                 .setMax(2F)
@@ -96,15 +96,15 @@ public class ClothScreenProvider {
                 .build());
 
         modSettings.addEntry(eb.startBooleanToggle(
-                        localized("option", "simple_toast"), options.simpleToast)
-                .setTooltip(localized("option", "simple_toast.tooltip"))
+                        localized("option", "simpleToast"), options.simpleToast)
+                .setTooltip(localized("option", "simpleToast.tooltip"))
                 .setDefaultValue(Config.Options.defaultSimpleToast)
                 .setSaveConsumer(val -> options.simpleToast = val)
                 .build());
 
         modSettings.addEntry(eb.startIntField(
-                localized("option", "toast_time"), options.toastTime)
-                .setTooltip(localized("option", "toast_time.tooltip"))
+                localized("option", "toastTime"), options.toastTime)
+                .setTooltip(localized("option", "toastTime.tooltip"))
                 .setDefaultValue(Config.Options.defaultToastTime)
                 .setMin(1)
                 .setMax(60)
@@ -112,8 +112,8 @@ public class ClothScreenProvider {
                 .build());
 
         modSettings.addEntry(eb.startIntField(
-                        localized("option", "hotbar_time"), options.hotbarTime)
-                .setTooltip(localized("option", "hotbar_time.tooltip"))
+                        localized("option", "hotbarTime"), options.hotbarTime)
+                .setTooltip(localized("option", "hotbarTime.tooltip"))
                 .setDefaultValue(Config.Options.defaultHotbarTime)
                 .setMin(1)
                 .setMax(60)

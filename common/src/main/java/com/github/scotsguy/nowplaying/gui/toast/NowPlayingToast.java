@@ -94,7 +94,7 @@ public class NowPlayingToast implements Toast {
             }
         } else {
             // Draw "Now Playing"
-            graphics.drawString(mc.font, localized("message", "now_playing"), TEXT_LEFT_MARGIN, 7, -11534256, false);
+            graphics.drawString(mc.font, localized("message", "nowPlaying"), TEXT_LEFT_MARGIN, 7, -11534256, false);
 
             // Draw song title
             for (int i = 0; i < textLines.size(); ++i) {
