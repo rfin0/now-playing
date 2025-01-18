@@ -53,38 +53,38 @@ public class Config {
     }
 
     public static class Options {
-        public static final boolean defaultOnlyKeybind = false;
-        public boolean onlyKeybind = defaultOnlyKeybind;
+        public static final boolean onlyKeybindDefault = false;
+        public boolean onlyKeybind = onlyKeybindDefault;
 
-        public static final Style defaultMusicStyle = Style.Toast;
-        public Style musicStyle = defaultMusicStyle;
+        public static final Style musicStyleDefault = Style.Toast;
+        public Style musicStyle = musicStyleDefault;
 
-        public static final Style defaultJukeboxStyle = Style.Hotbar;
-        public Style jukeboxStyle = defaultJukeboxStyle;
+        public static final Style jukeboxStyleDefault = Style.Hotbar;
+        public Style jukeboxStyle = jukeboxStyleDefault;
 
-        public static final boolean defaultFallbackToast = true;
-        public boolean fallbackToast = defaultFallbackToast;
+        public static final boolean fallbackToastDefault = true;
+        public boolean fallbackToast = fallbackToastDefault;
 
-        public static final boolean defaultSilenceWoosh = true;
-        public boolean silenceWoosh = defaultSilenceWoosh;
+        public static final boolean silenceWooshDefault = true;
+        public boolean silenceWoosh = silenceWooshDefault;
 
-        public static final float defaultToastScale = 1.0F;
-        public float toastScale = defaultToastScale;
+        public static final float toastScaleDefault = 1.0F;
+        public float toastScale = toastScaleDefault;
 
-        public static final boolean defaultSimpleToast = false;
-        public boolean simpleToast = defaultSimpleToast;
+        public static final boolean simpleToastDefault = false;
+        public boolean simpleToast = simpleToastDefault;
 
-        public static final boolean defaultDarkToast = false;
-        public boolean darkToast = defaultDarkToast;
+        public static final boolean darkToastDefault = false;
+        public boolean darkToast = darkToastDefault;
 
-        public static final int defaultToastTime = 5;
-        public int toastTime = defaultToastTime;
+        public static final int toastTimeDefault = 5;
+        public int toastTime = toastTimeDefault;
 
-        public static final int defaultHotbarTime = 3;
-        public int hotbarTime = defaultHotbarTime;
+        public static final int hotbarTimeDefault = 3;
+        public int hotbarTime = hotbarTimeDefault;
 
-        public static final boolean defaultNarrate = true;
-        public boolean narrate = defaultNarrate;
+        public static final boolean narrateDefault = true;
+        public boolean narrate = narrateDefault;
 
         public enum Style {
             Toast,
