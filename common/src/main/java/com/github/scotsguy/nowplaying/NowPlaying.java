@@ -25,7 +25,6 @@ package com.github.scotsguy.nowplaying;
 import com.github.scotsguy.nowplaying.config.Config;
 import com.github.scotsguy.nowplaying.gui.toast.NowPlayingToast;
 import com.github.scotsguy.nowplaying.mixin.accessor.GuiAccessor;
-import com.github.scotsguy.nowplaying.mixin.accessor.MinecraftAccessor;
 import com.github.scotsguy.nowplaying.util.ModLogger;
 import com.github.scotsguy.nowplaying.sound.SpriteProvider;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -60,9 +59,7 @@ public class NowPlaying {
 
     public static void onEndTick(Minecraft mc) {
         while (DISPLAY_KEY.consumeClick()) {
-//            displayLastMusic();
-            ((MinecraftAccessor)mc).getMusicManager().stopPlaying();
-            ((MinecraftAccessor)mc).getMusicManager().startPlaying(mc.getSituationalMusic());
+            displayLastMusic();
         }
     }
     
