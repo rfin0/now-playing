@@ -10,6 +10,7 @@
 
   "key.now-playing.group": "Now Playing",
   "key.now-playing.group.display": "Mostrar última canción",
+  "key.now-playing.group.next": "Play next track",
 
   "option.now-playing.onlyKeybind": "Usar solo tecla o comando",
   "option.now-playing.onlyKeybind.tooltip": "Mostrar música solo cuando se presione la tecla o se use el comando /nowplaying",

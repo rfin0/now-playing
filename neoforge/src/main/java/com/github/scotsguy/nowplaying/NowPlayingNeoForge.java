@@ -56,6 +56,7 @@ public class NowPlayingNeoForge {
     @SubscribeEvent
     static void registerKeyMappingsEvent(RegisterKeyMappingsEvent event) {
         event.register(NowPlaying.DISPLAY_KEY);
+        event.register(NowPlaying.NEXT_KEY);
     }
 
     // Resource reload event

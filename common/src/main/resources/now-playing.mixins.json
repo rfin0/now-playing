@@ -10,7 +10,8 @@
     "MixinLevelRenderer",
     "MixinMinecraft",
     "MixinToastInstance",
-    "accessor.GuiAccessor"
+    "accessor.GuiAccessor",
+    "accessor.MinecraftAccessor"
   ],
   "server": [
   ],

@@ -10,6 +10,7 @@
 
   "key.now-playing.group": "Now Playing",
   "key.now-playing.group.display": "显示正在播放的音乐",
+  "key.now-playing.group.next": "Play next track",
 
   "option.now-playing.onlyKeybind": "仅使用按键或命令",
   "option.now-playing.onlyKeybind.tooltip": "仅在按下显示按键或使用/nowplaying命令时显示音乐",

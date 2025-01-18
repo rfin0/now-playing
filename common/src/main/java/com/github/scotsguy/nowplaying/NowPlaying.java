@@ -25,6 +25,7 @@ package com.github.scotsguy.nowplaying;
 import com.github.scotsguy.nowplaying.config.Config;
 import com.github.scotsguy.nowplaying.gui.toast.NowPlayingToast;
 import com.github.scotsguy.nowplaying.mixin.accessor.GuiAccessor;
+import com.github.scotsguy.nowplaying.mixin.accessor.MinecraftAccessor;
 import com.github.scotsguy.nowplaying.util.Localization;
 import com.github.scotsguy.nowplaying.util.ModLogger;
 import com.github.scotsguy.nowplaying.sound.SpriteProvider;
@@ -52,6 +53,9 @@ public class NowPlaying {
     public static final KeyMapping DISPLAY_KEY = new KeyMapping(
             translationKey("key", "group.display"), InputConstants.Type.KEYSYM,
             InputConstants.UNKNOWN.getValue(), translationKey("key", "group"));
+    public static final KeyMapping NEXT_KEY = new KeyMapping(
+            translationKey("key", "group.next"), InputConstants.Type.KEYSYM,
+            InputConstants.UNKNOWN.getValue(), translationKey("key", "group"));
 
     public static ResourceLocation lastMusic;
 
@@ -62,6 +66,10 @@ public class NowPlaying {
     public static void onEndTick(Minecraft mc) {
         while (DISPLAY_KEY.consumeClick()) {
             displayLastMusic();
+        }
+        while (NEXT_KEY.consumeClick()) {
+            ((MinecraftAccessor)mc).getMusicManager().stopPlaying();
+            ((MinecraftAccessor)mc).getMusicManager().startPlaying(mc.getSituationalMusic());
         }
     }
     

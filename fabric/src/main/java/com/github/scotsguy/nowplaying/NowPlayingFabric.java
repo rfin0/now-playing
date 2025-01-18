@@ -48,6 +48,7 @@ public class NowPlayingFabric implements ClientModInitializer {
     public void onInitializeClient() {
         // Keybindings
         KeyBindingHelper.registerKeyBinding(NowPlaying.DISPLAY_KEY);
+        KeyBindingHelper.registerKeyBinding(NowPlaying.NEXT_KEY);
 
         // Commands
         ClientCommandRegistrationCallback.EVENT.register(((dispatcher, buildContext) ->
