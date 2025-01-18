@@ -33,7 +33,7 @@ above your hotbar (configurable), telling you what song you're about to listen t
 <summary><b>General Options</b></summary>
 
 - Only use key or command
-  - Sprite will only be shown when the keybind is pressed or the `/nowplaying` command is used.
+  - Whether to only show Pop-up when the keybind is pressed or the `/nowplaying` command is used.
 - Music pop-up style
   - How to display background music. Choice of toast, hotbar (status bar) message, or nothing.
 - Jukebox pop-up style
