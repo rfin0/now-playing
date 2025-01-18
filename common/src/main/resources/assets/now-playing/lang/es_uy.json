@@ -23,6 +23,8 @@
   "option.now-playing.toastScale.tooltip": "Escalar el tamaño del toast 'Reproduciendo'",
   "option.now-playing.simpleToast": "Toast simple",
   "option.now-playing.simpleToast.tooltip": "Mostrar solo la canción, sin el texto 'Reproduciendo'",
+  "option.now-playing.darkToast": "Dark toast",
+  "option.now-playing.darkToast.tooltip": "Use a dark background for the 'Now Playing' toast",
   "option.now-playing.toastTime": "Tiempo de visualización del toast",
   "option.now-playing.toastTime.tooltip": "El tiempo, en segundos, para mostrar el toast 'Reproduciendo'",
   "option.now-playing.hotbarTime": "Tiempo de visualización en la barra de acceso rápido",

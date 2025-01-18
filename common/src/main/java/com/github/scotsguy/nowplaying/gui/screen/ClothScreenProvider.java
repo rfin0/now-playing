@@ -102,6 +102,13 @@ public class ClothScreenProvider {
                 .setSaveConsumer(val -> options.simpleToast = val)
                 .build());
 
+        modSettings.addEntry(eb.startBooleanToggle(
+                        localized("option", "darkToast"), options.darkToast)
+                .setTooltip(localized("option", "darkToast.tooltip"))
+                .setDefaultValue(Config.Options.defaultDarkToast)
+                .setSaveConsumer(val -> options.darkToast = val)
+                .build());
+
         modSettings.addEntry(eb.startIntField(
                 localized("option", "toastTime"), options.toastTime)
                 .setTooltip(localized("option", "toastTime.tooltip"))

@@ -23,6 +23,8 @@
   "option.now-playing.toastScale.tooltip": "调整“正在播放”弹窗的大小",
   "option.now-playing.simpleToast": "简单的弹窗",
   "option.now-playing.simpleToast.tooltip": "在弹窗上只显示歌曲名称，没有 '正在播放' 文本",
+  "option.now-playing.darkToast": "Dark toast",
+  "option.now-playing.darkToast.tooltip": "Use a dark background for the 'Now Playing' toast",
   "option.now-playing.toastTime": "弹窗显示时间",
   "option.now-playing.toastTime.tooltip": "显示“正在播放”弹窗的时间（以秒为单位）",
   "option.now-playing.hotbarTime": "快捷栏显示时间",

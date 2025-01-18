@@ -23,6 +23,8 @@
   "option.now-playing.toastScale.tooltip": "Scale the size of the 'Now Playing' toast",
   "option.now-playing.simpleToast": "Simple toast",
   "option.now-playing.simpleToast.tooltip": "Only show the song, not the 'Now Playing' text",
+  "option.now-playing.darkToast": "Dark toast",
+  "option.now-playing.darkToast.tooltip": "Use a dark background for the 'Now Playing' toast",
   "option.now-playing.toastTime": "Toast display time",
   "option.now-playing.toastTime.tooltip": "The time, in seconds, to show the 'Now Playing' toast",
   "option.now-playing.hotbarTime": "Hotbar display time",

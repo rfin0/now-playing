@@ -23,6 +23,8 @@
   "option.now-playing.toastScale.tooltip": "Изменить размер всплывающего окна 'Сейчас играет'",
   "option.now-playing.simpleToast": "Простое всплывающее окно",
   "option.now-playing.simpleToast.tooltip": "Во всплывающем окне отображается только название песни без текста 'Сейчас играет'",
+  "option.now-playing.darkToast": "Dark toast",
+  "option.now-playing.darkToast.tooltip": "Use a dark background for the 'Now Playing' toast",
   "option.now-playing.toastTime": "Время отображения всплывающего окна",
   "option.now-playing.toastTime.tooltip": "Время (в секундах) для отображения всплывающего окна 'Сейчас играет'",
   "option.now-playing.hotbarTime": "Время отображения панели быстрого доступа",
